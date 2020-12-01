@@ -27,3 +27,6 @@ use_git_remote(name = "upstream", url = upstream_url)
 ### 参考地址
 
 <https://www.youtube.com/watch?v=kL6L2MNqPHg&t=799s>
+
+blogdown 关于github git的使用
+<https://bookdown.org/yihui/blogdown/github-pages.html>

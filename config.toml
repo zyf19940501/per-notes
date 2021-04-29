@@ -1,10 +1,10 @@
 baseurl = "/"
-languageCode = "en-us"
-title = "A Hugo website"
+languageCode = "zh-cn"
+title = "钟宇飞的博客"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$","_files$","\\.knit\\.md$","\\.utf8\\.md$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
@@ -12,15 +12,24 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
 [[menu.main]]
     name = "About"
     url = "/about/"
-[[menu.main]]
-    name = "GitHub"
-    url = "https://github.com/rstudio/blogdown"
-[[menu.main]]
-    name = "Twitter"
-    url = "https://twitter.com/rstudio"
+    weight = 1
 
+[[menu.main]]
+    name = "Categories"
+    url = "/categories/"
+    weight = 2  
+[[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 3
+
+[[menu.main]]
+    name = "R Study"
+    url = "http://www.zhongyufei.com/Rbook/_book"
+    weight = 4
+   
 [params]
-    description = "A website built through Hugo and blogdown."
+    description = "基于Rblogdown搭建的个人学习笔记博客."
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.12.0"

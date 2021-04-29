@@ -1,0 +1,621 @@
+---
+title: Data manipulation use dplyr package
+author: 钟宇飞
+date: '2020-09-28'
+slug: data-manipulation-use-dplyr-package
+categories: [data manipulation]
+tags: [dplyr package]
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,collapse=TRUE,message = FALSE,warning = FALSE)
+```
+
+## 前言
+
+`dplyr`包是`tidyverse`系列中的核心包之一,`dplyr`包提供了一组一致的动词来解决最常见的数据处理难题：
+
+- `mutate()` 添加新变量,是现有变量得函数
+
+- `select()` 筛选列,根据现有变量名称选这变量
+
+- `filter()` 筛选行，根据条件筛选
+
+- `summarise()` 按照一定条件汇总聚合
+
+- `arrange()` 行排序
+
+
+## 安装
+
+```{r eval=FALSE}
+## 最简单是的方式就是安装tidyverse
+install.packages('tidyverse')
+
+## 或者仅仅安装 tidyr:
+install.packages('dplyr')
+
+## 或者从github 安装开发版本
+## install.packages("devtools")
+devtools::install_github("tidyverse/dplyr")
+
+# CTEST CODE
+```
+
+
+## 基础用法
+
+```{r}
+library(dplyr)
+```
+
+### filter
+
+- 单条件筛选
+
+```{r}
+starwars %>% 
+  filter(species == "Droid")
+```
+
+- 多条件
+
+```{r}
+starwars %>% 
+  filter(species == "Droid",skin_color == "gold")
+
+# same above
+# starwars %>% 
+#   filter(species == "Droid" & skin_color == "white")
+
+```
+
+- 多情况筛选
+
+```{r}
+starwars %>% 
+  filter(species %in%  c("Droid",'Clawdite'))
+```
+
+- 逻辑值筛选
+
+注意`|` ,`&`,`!`等逻辑判断符号 
+
+```{r}
+library(nycflights13)
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+
+
+### select 
+
+当数据集较大列数较多时，我们可能并不需要那么多列，可以通过`select()`筛选：
+
+- 基础
+
+通过指定列名称筛选，顺便指定列之间顺序
+
+```{r}
+starwars %>% 
+  select(name,height,mass,hair_color,skin_color,eye_color)
+```
+
+- 列索引
+
+通过列名或数字向量索引
+
+```{r}
+starwars %>% 
+  select(name : eye_color)
+#same above
+starwars %>% 
+  select(1:6)
+# starwars %>% 
+#   select(c(1,2,4,5,7))
+```
+
+
+### rename
+
+列重命名使用`rename()`
+
+```{r}
+starwars %>% rename(home_world = homeworld)
+```
+
+### relocate
+
+更改列顺序，与使用`select()`指定列顺序相似
+
+```{r}
+# sex:homeworld列在height列前面
+starwars %>% relocate(sex:homeworld, .before = height)
+```
+
+
+### mutate
+
+`mutate()`在现有数据框基础上新增列
+
+```{r}
+starwars %>% 
+  mutate(bmi = mass / ((height / 100)  ^ 2)) %>% 
+  select(name:mass,bmi)
+```
+
+在新列基础上新增列
+
+```{r}
+starwars %>% 
+  mutate(bmi = mass / ((height / 100)  ^ 2),newbmi = bmi *2) %>% 
+  select(name:mass,bmi,newbmi)
+```
+
+### arrange
+
+- 单列排序默认升序，通过`desc()`降序排列
+
+
+```{r}
+starwars %>% 
+  arrange(desc(mass))
+```
+
+- 多列排序
+
+```{r}
+starwars %>% 
+  arrange(height,desc(mass))
+```
+
+
+### summarise
+
+按照分组聚合汇总
+
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    mass = mean(mass, na.rm = TRUE)
+  )
+```
+
+## 表操作
+
+### 基础
+
+`left_join()`,`full_join`,`inner_join()`等动词关联两个表。详情请查看：`vignette("two-table")`
+
+`left_join()`实现类似Excel中`VLOOKUP`函数功能或数据库中`left join`功能。
+
+- 基础用法
+
+`left_join()`,`right_join()`,`full_join()`,`inner_join`()，第一个以左表为主，第二个右表为主，第三个全连接，第四个内连接(只返回两表中都有的记录)，和数据库中连接方式一致。
+
+```{r}
+library("nycflights13")
+# Drop unimportant variables so it's easier to understand the join results.
+flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+
+flights2 %>% 
+  left_join(airlines)
+```
+
+指定关联列，类似数据库中`on =  column `
+
+```{r}
+flights2 %>% left_join(planes, by = "tailnum")
+```
+
+- 不同名称列关联
+
+```{r}
+#出发机场和目的机场信息
+flights2 %>% left_join(airports, by = c("dest" = "faa"))
+#flights2 %>% left_join(airports, c("origin" = "faa"))
+```
+
+
+- 筛选连接
+
+`anti_join()` 删除所有左表中在右表中匹配到的行
+
+`semi_join()`保留所有左表在右表中匹配到的行
+
+
+```{r}
+df1 <- tibble(a=letters[1:20],b=1:20)
+df2 <- tibble(a=letters,b=1:26)
+
+df1 %>% semi_join(df2)
+df2 %>% anti_join(df1)
+```
+
+- 集合操作
+
+1. `intersect(x,y)`返回x,y交集
+
+2. `union(x,y)`返回x,y中唯一的值
+
+3. `setdiff(x,y)`返回存在x中但是不存在y中的记录
+
+```{r}
+(df1 <- tibble(x = 1:2, y = c(1L, 1L)))
+(df2 <- tibble(x = 1:2, y = 1:2))
+intersect(df1, df2)
+union(df1, df2)
+setdiff(df1, df2)
+setdiff(df2, df1)
+```
+
+### 多表操作
+
+多表操作请使用`purrr::reduce()`
+
+
+## 列操作
+
+在多列上执行相同的操作是经常有的操作，但是复制和粘贴麻烦还容易错：
+
+```{r eval=FALSE}
+df %>% 
+  group_by(g1, g2) %>% 
+  summarise(a = mean(a), b = mean(b), c = mean(c), d = mean(d))
+```
+
+通过`across()`函数可以更简洁地重写上面代码：
+
+```{r eval=FALSE}
+df %>% 
+  group_by(g1, g2) %>% 
+  summarise(across(a:d, mean))
+```
+
+
+### 基本操作
+
+across() 有两个主要参数：
+
+- 第一个参数，.cols选择要操作的列。它使用`tidyr`的方式选择（例如select()），因此您可以按位置，名称和类型选择变量。
+
+- 第二个参数，.fns是要应用于每一列的一个函数或函数列表。这也可以是purrr样式的公式（或公式列表），例如~ .x / 2。
+
+
+```{r}
+starwars %>% 
+  summarise(across(where(is.character), ~ length(unique(.x))))
+
+# 列属性是字符的列求唯一值数
+# starwars %>% 
+#   summarise(length(unique(name)))
+# starwars %>% 
+#   summarise(length(unique(hair_color)))
+
+starwars %>% 
+  group_by(species) %>% 
+  filter(n() > 1) %>% 
+  summarise(across(c(sex, gender, homeworld), ~ length(unique(.x))))
+
+starwars %>% 
+  group_by(homeworld) %>% 
+  filter(n() > 1) %>% 
+  summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
+```
+
+
+`across()` 不会选择分组变量：
+
+```{r}
+df <- data.frame(g = c(1, 1, 2), x = c(-1, 1, 3), y = c(-1, -4, -9))
+df %>% 
+  group_by(g) %>% 
+  summarise(across(where(is.numeric), sum))
+```
+
+### 多种函数功能
+
+通过在第二个参数提供函数或lambda函数的命名列表，可是使用多个函数转换每个变量：
+
+
+```{r}
+min_max <- list(
+  min = ~min(.x, na.rm = TRUE), 
+  max = ~max(.x, na.rm = TRUE)
+)
+starwars %>% summarise(across(where(is.numeric), min_max))
+```
+
+
+通过`.names`参数控制名称：
+
+NB:该参数的机制没有特别理解，需多练习体会。主要是用到匿名函数时
+
+以下是官方图册中的案例，但是报错：
+
+```{r eval=FALSE}
+starwars %>% summarise(across(where(is.numeric), min_max, .names = "{.fn}.{.col}"))
+```
+
+修改后：
+
+```{r}
+starwars %>% summarise(across(where(is.numeric), min_max, .names = "{fn}.{col}"))
+```
+
+
+区别主要是`.names`参数的使用方式问题，`.`加不加的问题。
+
+```{r eval=FALSE}
+
+starwars %>% summarise(across(where(is.numeric), min_max, .names = "{fn}——{col}"))
+
+```
+
+### 当前列
+
+如果需要，可以通过调用访问内部的“当前”列的名称`cur_column()`。
+
+```{r}
+df <- tibble(x = 1:3, y = 3:5, z = 5:7)
+mult <- list(x = 1, y = 10, z = 100)
+
+df %>% mutate(across(all_of(names(mult)), ~ .x * mult[[cur_column()]]))
+```
+
+## 行操作
+
+在操纵数据框中，`dplyr`等工具让我们对列操作相对简单，但是对行操作则困难些。
+
+### 构造数据集
+
+```{r}
+df <- tibble(x = 1:2, y = 3:4, z = 5:6)
+df %>% rowwise()
+```
+
+像`group_by()`,`rowwise()`并没有做任何事情，它的作用是改变其他动词的工作方式：
+比较以下代码中不的不同
+
+```{r}
+df %>% mutate(m = mean(c(x, y, z)))
+df %>% rowwise() %>% mutate(m = mean(c(x, y, z)))
+```
+
+`data.table`中的操作:
+
+```{r eval=FALSE}
+library(data.table)
+
+dt <- data.table(x = 1:2, y = 3:4, z = 5:6)
+dt[,m:=mean(c(x,y,z))][]
+dt[,m:=mean(c(x,y,z)),by=.(x)][]
+```
+
+您可以选择在调用中提供“标识符”变量`rowwise()`。这些变量在您调用时被保留`summarise()`，因此它们的行为与传递给的分组变量有些相似`group_by()`：
+
+```{r}
+df <- tibble(name = c("Mara", "Hadley"), x = 1:2, y = 3:4, z = 5:6)
+
+df %>% 
+  rowwise() %>% 
+  summarise(m = mean(c(x, y, z)))
+
+df %>% 
+  rowwise(name) %>% 
+  summarise(m = mean(c(x, y, z)))
+```
+
+
+### 行汇总统计
+
+`dplyr::summarise()`使得汇总一列中各行的值非常容易。当与之结合使用时`rowwise()`，还可以轻松汇总一行中各列的值：
+
+```{r}
+df <- tibble(id = 1:6, w = 10:15, x = 20:25, y = 30:35, z = 40:45)
+rf <- df %>% rowwise(id)
+rf %>% mutate(total = sum(c(w, x, y, z)))
+rf %>% summarise(total = sum(c(w, x, y, z)))
+```
+
+
+键入每个变量名称很繁琐，通过`c_across()`使更简单
+
+```{r}
+rf %>% mutate(total = sum(c_across(w:z)))
+rf %>% mutate(total = sum(c_across(where(is.numeric))))
+
+rf %>% 
+  mutate(total = sum(c_across(w:z))) %>% 
+  ungroup() %>% 
+  mutate(across(w:z, ~ . / total))
+```
+
+
+
+
+## 分组操作
+
+详情: <https://cloud.r-project.org/web/packages/dplyr/vignettes/grouping.html>
+
+`group_by()`最重要的分组动词,需要一个数据框和一个或多个变量进行分组：
+
+### 添加分组
+
+```{r}
+by_species <- starwars %>% group_by(species)
+by_sex_gender <- starwars %>% group_by(sex, gender)
+```
+
+除了按照现有变量分组外，还可以按照函数处理后的变量分组，等效在`mutate()`之后执行`group_by`:
+
+```{r}
+bmi_breaks <- c(0, 18.5, 25, 30, Inf)
+starwars %>%
+  group_by(bmi_cat = cut(mass/(height/100)^2, breaks=bmi_breaks)) %>%
+  tally()
+```
+
+
+### 删除分组变量
+
+要删除所有分组变量，使用`ungroup()`:
+
+```{r}
+by_species %>%
+  ungroup() %>%
+  tally()
+```
+
+
+### 动词
+
+`summarise()` 计算每个组的汇总，表示从`group_keys`开始右侧添加汇总变量
+
+```{r}
+by_species %>%
+  summarise(
+    n = n(),
+    height = mean(height, na.rm = TRUE)
+  )
+```
+
+
+该`.groups=`参数控制输出的分组结构。删除右侧分组变量的历史行为对应于`.groups =` "drop_last"没有消息或.groups = NULL有消息（默认值）。
+
+从1.0.0版开始，分组信息可以保留`(.groups = "keep")`或删除 `(.groups = 'drop)`
+
+
+```{r}
+a <- by_species %>%
+  summarise(
+    n = n(),
+    height = mean(height, na.rm = TRUE),.groups='drop') %>% 
+  group_vars()
+
+b <- by_species %>%
+  summarise(
+    n = n(),
+    height = mean(height, na.rm = TRUE),.groups='keep') %>% 
+  group_vars()
+
+object.size(a)
+object.size(b)
+```
+
+在实际使用中，当数据较大时需要删掉分组信息。以上可以看到保留分组信息的比没保留的大了两倍多。
+
+## 用`dplyr`编程
+
+Programming with dplyr:
+
+<https://cloud.r-project.org/web/packages/dplyr/vignettes/programming.html>
+
+本节概念性东西较多且复杂不易理解，先尝试会使用，概念再慢慢消化理解。
+
+虽然复杂但是比较实用，尤其是当我们需要定义一些通用功能函数时
+
+以下是对原文引用
+
+两种情况：
+
+- When you have the data-variable in a function argument (i.e. an env-variable that holds a promise2), you need to ** embrace ** the argument by surrounding it in doubled braces, like `filter(df, {{ var }})`.
+
+The following function uses embracing to create a wrapper around `summarise()` that computes the minimum and maximum values of a variable, as well as the number of observations that were summarised:
+
+```{r eval=FALSE}
+var_summary <- function(data, var) {
+  data %>%
+    summarise(n = n(), min = min({{ var }}), max = max({{ var }}))
+}
+mtcars %>% 
+  group_by(cyl) %>% 
+  var_summary(mpg)
+```
+
+
+- When you have an env-variable that is a character vector, you need to index into the .data pronoun with [[, like summarise(df, mean = mean(.data[[var]])).
+
+The following example uses .data to count the number of unique values in each variable of mtcars: 
+
+```{r eval=FALSE}
+for (var in names(mtcars)) {
+  mtcars %>% count(.data[[var]]) %>% print()
+}
+```
+
+Note that .data is not a data frame; it’s a special construct, a pronoun, that allows you to access the current variables either directly, with `.data$x` or indirectly with ` .data[[var]]`. Don’t expect other functions to work with it.
+
+
+### 案例
+
+当我们不知道接下来会用哪个变量汇总时：
+
+```{r}
+my_summarise <- function(data, group_var) {
+  data %>%
+    group_by({{ group_var }}) %>%
+    summarise(mean = mean(mass))
+}
+```
+
+
+如果在多个位置使用：
+
+```{r}
+my_summarise2 <- function(data, expr) {
+  data %>% summarise(
+    mean = mean({{ expr }}),
+    sum = sum({{ expr }}),
+    n = n()
+  )
+}
+```
+
+
+当多个表达式时：
+
+```{r}
+my_summarise3 <- function(data, mean_var, sd_var) {
+  data %>% 
+    summarise(mean = mean({{ mean_var }}), sd = mean({{ sd_var }}))
+}
+```
+
+如果要输出变量名时：
+
+```{r}
+my_summarise4 <- function(data, expr) {
+  data %>% summarise(
+    "mean_{{expr}}" := mean({{ expr }}),
+    "sum_{{expr}}" := sum({{ expr }}),
+    "n_{{expr}}" := n()
+  )
+}
+my_summarise5 <- function(data, mean_var, sd_var) {
+  data %>% 
+    summarise(
+      "mean_{{mean_var}}" := mean({{ mean_var }}), 
+      "sd_{{sd_var}}" := mean({{ sd_var }})
+    )
+}
+```
+
+
+任意个表达式：
+
+这种使用场景更多
+
+```{r}
+my_summarise <- function(.data, ...) {
+  .data %>%
+    group_by(...) %>%
+    summarise(mass = mean(mass, na.rm = TRUE), height = mean(height, na.rm = TRUE))
+}
+starwars %>% my_summarise(homeworld)
+starwars %>% my_summarise(sex, gender)
+```
+

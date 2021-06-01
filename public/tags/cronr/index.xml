@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cronR on 钟宇飞的博客</title>
+    <link>/tags/cronr/</link>
+    <description>Recent content in cronR on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 13 Aug 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/cronr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在linux上利用cronR部署定时任务</title>
+      <link>/2020/08/13/cronr/</link>
+      <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/13/cronr/</guid>
+      <description>Cron 基础 在linux上定时任务可直接利用命令部署。cron服务是Linux的内置服务，但它不会开机自动启动，可以每分钟执行任务。可以用以下命令启动和停止服务：
+/bin/systemctl start crond/bin/systemctl stop crond/bin/systemctl restart crond/bin/systemctl reload crond/bin/systemctl status crond#以上代码在centos7上测试成功Crontab 操作 crontab -u //设定某个用户的cron服务crontab -l //列出某个用户cron服务的详细内容crontab -r //删除某个用户的cron服务crontab -e //编辑某个用户的cron服务crontab -i //打印提示，输入yes等确认信息/var/spool/cron/root (以用户命名的文件) 是所有默认存放定时任务的文件/etc/cron.deny 该文件中所列出用户不允许使用crontab命令/etc/cron.allow 该文件中所列出用户允许使用crontab命令，且优先级高于/etc/cron.deny/var/log/cron 该文件存放cron服务的日志用以下crontab -e 打开编辑任务：
+* * * * * /usr/lib64/R/bin/Rscript &#39;/home/zyf/testcornR.R&#39; &amp;gt;&amp;gt; &#39;/home/zyf/testcornR.log&#39; 2&amp;gt;&amp;amp;1
+# Rscript 路径/usr/lib64/R/bin/Rscript # 待执行脚本完整路径/home/zyf/testcornR.R# 日志输出&amp;gt;&amp;gt; &#39;/home/zyf/testcornR.log&#39; 2&amp;gt;&amp;amp;1# 2&amp;gt;&amp;amp;1 重新定向 不太懂CronR设置定时任务 cronR包cran地址</description>
+    </item>
+    
+  </channel>
+</rss>

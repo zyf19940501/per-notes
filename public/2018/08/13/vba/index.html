@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.73.0" />
+
+
+<title>利用VBA插入图片 - 钟宇飞的博客</title>
+<meta property="og:title" content="利用VBA插入图片 - 钟宇飞的博客">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="http://www.zhongyufei.com/Rbook/_book">R Study</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">利用VBA插入图片</h1>
+
+    
+    <span class="article-date">2018-08-13</span>
+    
+
+    <div class="article-content">
+      <p>在工作过程中需要向Excel单元格中插入图片,VBA代码记录如下：</p>
+<pre><code>' insert photo
+Sub insert_photo()
+On Error Resume Next
+Dim dress$
+    Set dig = Application.FileDialog(msoFileDialogFolderPicker)
+   With dig
+         .Show
+  dress = .SelectedItems(1)                 '选择文件夹地址
+       End With
+Dim MR As Range
+For Each MR In Selection
+  If Not IsEmpty(MR) Then
+    MR.Select
+    ML = MR.Left
+    MT = MR.Top
+    MW = MR.Width
+    MH = MR.Height
+    ActiveSheet.Shapes.AddShape(msoShapeRectangle, ML, MT, MW, MH).Select
+    Selection.ShapeRange.Fill.UserPicture _
+       dress &amp; &quot;\&quot; &amp; MR.Value &amp; &quot;.jpg&quot;     '设置地址所在目录下以当前单元内容为名称的.jpg图片
+   End If
+Next
+End Sub
+</code></pre><p>使用方法：</p>
+<p>假定Excel中A列为货品编码,图文件夹中图片是以货品编码命名，在B列中等于A列货品编码，选中B列，执行插入图片宏代码，将会让你打开放图片的文件夹，选中文件夹即可。</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备44030602004537号</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

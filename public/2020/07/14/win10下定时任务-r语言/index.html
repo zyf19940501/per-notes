@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.73.0" />
+
+
+<title>Win10R语言定时任务 - 钟宇飞的博客</title>
+<meta property="og:title" content="Win10R语言定时任务 - 钟宇飞的博客">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="http://www.zhongyufei.com/Rbook/_book">R Study</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">Win10R语言定时任务</h1>
+
+    
+    <span class="article-date">2020-07-14</span>
+    
+
+    <div class="article-content">
+      <h2 id="定时任务">定时任务</h2>
+<p>实际工作中，数据清洗工作中需要定时执行，比如从数仓跑固定报表后发邮件或者是按照一定业务逻辑整合数据。</p>
+<p>接下来就记录win10中的实现R语言的定时任务，共有两种方式，一种是win10自带的任务计划程序，另外一种是利用R包实现定时任务。需要注意的是Win下，R语言实现定时任务，需要用不带中文的脚本包裹真正的脚本来执行,因为直接执行的脚本包含中文时会报错。</p>
+<h2 id="win10-自带">win10 自带</h2>
+<p>win10自带任务计划程序，在电脑左下角搜索【任务计划程序，进入win10任务计划程序。如下所示：</p>
+<p><img src="/img/2020-07-14/p1.png" alt="p1"></p>
+<p>Step 1: 点击创建任务</p>
+<p><img src="/img/2020-07-14/p2.png" alt="常规"></p>
+<p>常规选项：选择【不管用户是否登录都要运行】与【使用最高权限运行】</p>
+<p>Step2: 设置触发器</p>
+<p>选择触发器，点击新建，按照任务需求设置。</p>
+<p><img src="/img/2020-07-14/p3.png" alt="触发器"></p>
+<p>Step 3：设置操作选项</p>
+<p>选择操作，点击新建。</p>
+<p><img src="/img/2020-07-14/p4.png" alt="操作"></p>
+<p>其中程序或脚本 请选择你的Rscript程序路径,如：D:\Program Files\R\R-4.0.2\bin\Rscript.exe，填写完整路径。</p>
+<p>添加参数(可选)A，即填写待执行的R脚本：C:\Users\zhongyf\Desktop\TEST.R  ，填写完整路径。</p>
+<p>这里解释一下三个文本框内容的含义，</p>
+<p>【程序或脚本】文本框中填的是R编译器的名称，一般就是Rscript.exe</p>
+<p>【起始于】文本框中填的是R编译器的目录，上图中假设你的R编译器的完整路径是“【D:\Program Files\R\R-4.0.2\Rscript.exe】”</p>
+<p>【添加参数】文本框中填的是你的R程序的完整路径，这里假设在C盘的Users文件夹下面有一个叫做C:\Users\zhongyf\Desktop\TEST.R 的文件。</p>
+<p>将三部分连接在一起  R D:\Program Files\R\R-4.0.2\bin\Rscript.exe  C:\Users\zhongyf\Desktop\TEST.R</p>
+<hr>
+<h3 id="r包实现定时任务">R包实现定时任务</h3>
+<p><code>taskscheduleR</code>包在WIN下实现定时任务。</p>
+<h4 id="安装">安装</h4>
+<p>包在CRAN上，安装很简单，运行</p>
+<p><code>install.packages(&quot;taskscheduleR&quot;)</code></p>
+<p>如果想要在Rstudio中可视化操作，需要安装：</p>
+<p><code>install.packages('miniUI')</code></p>
+<p><code>install.packages('shiny')</code></p>
+<h4 id="脚本编写定时任务">脚本编写定时任务</h4>
+<p>在win10中 编写脚本<code>Rscript.R</code>，需要另外新建一个R脚本emailtasks.R<code>，脚本内容为</code>source(&rsquo;./Rscript.R&rsquo;,encoding = &lsquo;utf-8&rsquo;)`，通过这种方式可以避免脚本中包含中文无法执行的问题</p>
+<pre><code>library(taskscheduleR)
+
+#需要定时执行的R脚本
+# emailtasks.R 文件的内容用source函数功能包裹起来的脚本
+myscript &lt;- &quot;C:/Users/admin/Desktop/timedtask/email/emailtasks.R&quot;
+
+#创建定时任务
+taskscheduler_create(taskname = &quot;dxc_tasks_email&quot;, rscript = myscript, 
+                     schedule = &quot;DAILY&quot;, starttime = &quot;09:05&quot;,startdate = format(Sys.Date(), &quot;%Y/%m/%d&quot;))
+
+#可以通过打开 【任务计划程序】查看任务是否添加成功
+# 删除任务
+# taskscheduler_delete('newtasks')
+# 运行任务
+# taskscheduler_runnow('dxc_tasks_email')
+</code></pre><p><code>linux</code>上定时任务请查阅：<a href="http://www.zhongyufei.com/2020/08/13/cronr/">http://www.zhongyufei.com/2020/08/13/cronr/</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备44030602004537号</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

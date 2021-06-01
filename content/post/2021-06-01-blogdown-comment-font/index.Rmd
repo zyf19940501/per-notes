@@ -1,0 +1,29 @@
+---
+title: blogdown-comment-font
+author: 宇飞的世界
+date: '2021-06-01'
+slug: blogdown-comment-font
+categories:
+  - comment-font
+tags: []
+---
+
+
+<html>
+<style> 
+.hljs-comment{
+  font-family: Microsoft YaHei ;
+  font-style: normal;
+}
+</style>
+</html>
+
+
+## 加载包
+
+```{r}
+library(dplyr)
+
+# 添加中文注释
+```
+

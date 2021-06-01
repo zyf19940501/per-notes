@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>power bi on 钟宇飞的博客</title>
+    <link>/categories/power-bi/</link>
+    <description>Recent content in power bi on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 13 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/power-bi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Power BI 自定义配色</title>
+      <link>/2019/03/13/power-bi/</link>
+      <pubDate>Wed, 13 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/13/power-bi/</guid>
+      <description>在用Power BI 搭建仪表版过程中，往往会要求按照公司的配色需求调整。
+创建一下json文件，复制在TXT中,修改后缀名即可。其中颜色可自行更改，datacolors是颜色顺序可调整,最前面的颜色当图只有一个颜色时优先。
+{&amp;quot;name&amp;quot;: &amp;quot;zhongyf theme 1&amp;quot;,&amp;quot;dataColors&amp;quot;: [&amp;quot;#568410&amp;quot;, &amp;quot;#3A6108&amp;quot;, &amp;quot;#70A322&amp;quot;, &amp;quot;#915203&amp;quot;, &amp;quot;#D79A12&amp;quot;, &amp;quot;#bb7711&amp;quot;, &amp;quot;#114400&amp;quot;, &amp;quot;#aacc66&amp;quot;],&amp;quot;background&amp;quot;:&amp;quot;#FFFFFF&amp;quot;,&amp;quot;foreground&amp;quot;: &amp;quot;#000000&amp;quot;,&amp;quot;tableAccent&amp;quot;: &amp;quot;#568410&amp;quot;}详情请参阅 :
+https://docs.microsoft.com/zh-cn/power-bi/create-reports/desktop-report-themes</description>
+    </item>
+    
+  </channel>
+</rss>

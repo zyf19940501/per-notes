@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.73.0" />
+
+
+<title>ROracle包安装 - 钟宇飞的博客</title>
+<meta property="og:title" content="ROracle包安装 - 钟宇飞的博客">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="http://www.zhongyufei.com/Rbook/_book">R Study</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">ROracle包安装</h1>
+
+    
+    <span class="article-date">2020-07-25</span>
+    
+
+    <div class="article-content">
+      <p>[toc]</p>
+<h2 id="前言">前言</h2>
+<p>需要连接oracle数据库时，可使用<code>ROracle</code>包，你搜索将会提示你用ROralce包，但是当你直接install.packages()时将会报错，你能简单搜索到的资料往往说得并不全面，让你一知半解，而且资料比较老。至此，发现让R与Oracle数据库交互，并不是一件特别简单的事情。至于为什么要连接，那当然是因为工作需要，经过一番折腾搜索资料，成功连接到oracle数据库，由于中文搜索引擎下能找到的有用且完整的资料有限，故将安装资料整理记录，分为win10下安装以及服务器上安装两部分。</p>
+<p>需要注意的是，无论在哪种系统下安装该包，你都需要有一定的计算机基础：</p>
+<ul>
+<li>
+<p>配置环境变量，后文中有在win中配置环境变量的gif图</p>
+</li>
+<li>
+<p>配置rtools，因为该包需要编译，win中R-4.0后安装配置rtools<a href="https://cran.r-project.org/bin/windows/Rtools/">资料</a>，重点是下载后安装配置环境变量。rtools40安装包已放百度网盘。当你使用的R版是4.0版本之前的版本，需自行下载老版本的Rtools。</p>
+</li>
+<li>
+<p>连接数据库，可以参考我的公众号『宇飞的世界』里面关于连接数据库字符串的文章。</p>
+</li>
+</ul>
+<p>ROracle包官网<a href="https://www.oracle.com/database/technologies/roracle-downloads.html">地址</a>，可以下载到包源码，详情请点击地址前往官网。</p>
+<p>在linxu安装ROracle包需要依赖几个软件包，但是下载资料需要有账号且网络原因，故提供相关下载地址。</p>
+<p>百度网盘下载地址：</p>
+<pre><code>链接：https://pan.baidu.com/s/1R5xUTpR7BlWDnlDojzO7fw 
+提取码：u1dz 
+复制这段内容后打开百度网盘手机App，操作更方便哦
+</code></pre><p>Note:  <strong>ROracle包官方安装<a href="https://github.com/cran/ROracle/blob/master/INSTALL">资料</a></strong>，适合有计算机背景以及英语好的人直接阅读。</p>
+<h2 id="win10安装">Win10安装</h2>
+<p>win系统下面安装相对简单，主要是我们熟悉的界面，像我不懂linxu的人直接在linux配置环境变量这些，简直太麻烦了，而且不知道对错。如果不是非得在linxu上面安装，建议大家就在win10系统中安装配置R语言环境。如果想体验服务器中的rstudio-server或者shiny-server，可以参考我的文章<a href="https://mp.weixin.qq.com/s/ggoolYtWpjn-NqOVNQyn8A">服务器中-R语言环境配置</a>。</p>
+<h3 id="roracle包连接">ROracle包连接</h3>
+<p>第一次安装这个包时遇到了很多困难，吃尽苦头。安装需要分为三步：首先安装oracle客户端，其次配置好环境变量，最后安装包验证。</p>
+<ol>
+<li>
+<p>安装<a href="https://www.oracle.com/database/technologies/instant-client.html">Oracle Instant Client</a></p>
+<p>需要安装oracle 客户端，选择64位安装，安装文件【win64_11gR2_client】在提供的云盘中，文件较大600M。</p>
+</li>
+<li>
+<p>配置环境变量</p>
+<p><code>OCI_INC</code>与<code>OCI_LIB64</code>两个环境变量，WIN10怎么配置环境变量，可以参照后文动图或自行搜索。下面两个环境变量的路径是第一步中你按照客户端的路径，可以根据你自己的选择做相应修改。路径中不要有中文或空格等特殊符号，建议直接装某盘下面，像我直接安装在C盘。</p>
+<pre><code>#配置两个环境变量
+# step1 
+#OCI_INC='D:\app\zhongyf\product\11.2.0\client_1\oci\include'
+# step 2
+#OCI_LIB64='D:\app\zhongyf\product\11.2.0\client_1\BIN'
+#验证
+Sys.getenv('OCI_INC')
+Sys.getenv('OCI_LIB64')
+</code></pre><p><!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>配置<code>Rtools</code></p>
+<p>提前配置好<code>Rtools</code>环境，如果已经安装配置好，请跳过。在R中运行以下检查是否安装配置成功，如果未安装成功，请参照<a href="https://cran.r-project.org/bin/windows/Rtools/">官方资料</a>安装配置</p>
+<pre><code>Sys.which('make')
+</code></pre><p><img src="https://gitee.com/zhongyufei/photo-bed/raw/pic/img/Rtools-%E6%A3%80%E6%9F%A5%E9%85%8D%E7%BD%AE%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F.png" alt=""></p>
+</li>
+<li>
+<p>安装包</p>
+<p>可以直接在安装命令中修改安装镜像，或者在Rstudio中修改默认镜像地址。</p>
+<pre><code>install.packages('ROracle',repos = &quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&quot;) #改为国内镜像
+</code></pre></li>
+<li>
+<p>验证</p>
+<pre><code>library(ROracle)
+library(DBI)
+drv &lt;-dbDriver(&quot;Oracle&quot;)
+connect.string &lt;- &quot;(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.88.129)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = bidev)))&quot;  
+con &lt;- dbConnect(drv,username = &quot;pub_query&quot;, password = &quot;pub_query&quot;,dbname = connect.string)
+</code></pre><p><!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>其他数据库</p>
+<p>其他数据库包的安装以及使用可以参考我的公众号：宇飞的世界</p>
+</li>
+<li>
+<p>怎样配置环境变量</p>
+<p>![](C:\Users\Administrator\Pictures\Saved Pictures\配置环境变量.gif)</p>
+</li>
+</ol>
+<h3 id="odbc包连接">ODBC包连接</h3>
+<p>其实，后来发现不止<code>ROracle</code>包可以与R交互，还可以通过<code>odbc</code>包与之连接，前提是配置好<code>Oracle</code>客户端。但是经过我自己的测试与官网相关的测试，通过<code>odbc</code>连接确实相比<code>ROracle</code>包慢多倍，所以使用以<code>ROracle</code>包为主。</p>
+<p><code>odbc</code>连接代码如下：</p>
+<pre><code># use odbc packages connect databse
+library(DBI)
+con_odbc &lt;- dbConnect(odbc::odbc(), .connection_string = &quot;Driver={Oracle in OraClient11g_home1};
+DBQ=172.16.88.131:1521/ghbi;UID=pub_query;PWD=pub_query;&quot;, timeout = 10)
+# 前提条件是通过 odbc::odbcListDrivers() 检测到当前环境中存在“Oracle in OraClient11g_home1” 驱动。
+</code></pre><p>或者通过ODBC数据源配置DSN,然后通过RODBC连接。</p>
+<p><!-- raw HTML omitted --></p>
+<p>后期会整理完善<code>Linux</code>上系统安装<code>ROracle</code>包的资料，欢迎持续关注我的公众号：宇飞的世界</p>
+<hr>
+<h2 id="linux-安装">Linux 安装</h2>
+<h3 id="ubuntu系统">Ubuntu系统</h3>
+<p>经过验证，以下方式在Ubuntu18.04或Ubuntu20.04上面都成功安装ROracle包，大家在安装时可以在百度网盘下载号安装包，存放在某文件夹下，然后cd到该路径依次执行命令即可成功安装。</p>
+<ol>
+<li>
+<p>install alien for rpm conversion &amp; libaio</p>
+<pre><code>sudo apt-get install alien
+sudo apt-get install libaio1
+</code></pre></li>
+<li>
+<p>官网下载安装包</p>
+<p><a href="https://www.oracle.com/database/technologies/instant-client/downloads.html">官网</a>下载必须安装包，https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html可以下载linux版本的Oracle客户端.</p>
+<p>根据需要对应版本的包</p>
+<pre><code># 必须下载安装
+oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
+oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
+oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+# 可安装
+oracle-instantclient12.1-jdbc-12.1.0.2.0-1.x86_64.rpm
+oracle-instantclient12.1-odbc-12.1.0.2.0-1.x86_64.rpm
+</code></pre><p><img src="https://gitee.com/zhongyufei/photo-bed/raw/pic/img/ROracle-%E5%8C%85%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96%E5%8C%85-12.2.png" alt=""></p>
+<p>cd到下载文件的位置，对于基于debian的系统（如ubuntu），请转换rpm，然后安装：</p>
+<pre><code>cd 
+sudo alien -i oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient12.1-jdbc-12.1.0.2.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient12.1-odbc-12.1.0.2.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+</code></pre></li>
+<li>
+<p>添加环境变量</p>
+<pre><code>export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+export ORACLE_HOME=/usr/lib/oracle/12.1/client64
+export PATH=$PATH:$ORACLE_HOME/bin
+</code></pre></li>
+<li>
+<p>add the path to oracle.conf &amp; update cache</p>
+<pre><code>echo &quot;/usr/lib/oracle/12.1/client64/lib&quot; | sudo tee /etc/ld.so.conf.d/oracle.conf
+sudo ldconfig -v
+</code></pre></li>
+<li>
+<p>验证</p>
+<p>test if paths are set and you see the tools:</p>
+<pre><code>echo $LD_LIBRARY_PATH
+echo $ORACLE_HOME
+echo $PATH
+sqlplus    # should give you the command prompt
+</code></pre></li>
+<li>
+<p>安装R包</p>
+<p>cd到<code>ROracle_1.3-2.tar.gz</code>文件夹下执行安装命令</p>
+<pre><code>sudo R CMD INSTALL --configure-args='--with-oci-lib=/usr/lib/oracle/12.1/client64/lib --with-oci-inc=/usr/include/oracle/12.1/client64' ROracle_1.3-2.tar.gz
+</code></pre><p>或者在R中执行</p>
+<pre><code> install.packages('ROracle_1.3-1.tar.gz', repos=NULL, configure.args='--with-oci-lib=/usr/lib/oracle/12.1/client64/lib --with-oci-inc=/usr/include/oracle/12.1/client64')
+</code></pre></li>
+</ol>
+<h3 id="centos-系统">centos 系统</h3>
+<p>以下为照搬参考资料中的代码，经过验证成功。或者采用ubuntu中安装方法安装亦可。</p>
+<ul>
+<li>Overview</li>
+</ul>
+<p>When tasked with an R-based project, you might find yourself wanting to connect to an Oracle database. <a href="https://cran.r-project.org/web/packages/ROracle/index.html">ROracle</a> is one library you can use. This post is a guide on installing the library on <code>CentOS 7</code>.</p>
+<ul>
+<li>Oracle Instant Client</li>
+</ul>
+<p>First thing we need to do is install the right dependencies.</p>
+<p>Install the <code>yum</code> repo and <code>gpg</code> key for Oracle Instant Client:</p>
+<pre><code>export ORACLE_INSTANT_CLIENT_VERSION=18.3
+export ORACLE_YUM_URL=https://yum.oracle.com 
+export ORACLE_HOME=/usr/lib/oracle/${ORACLE_INSTANT_CLIENT_VERSION}/client64
+export ORACLE_YUM_REPO=public-yum-ol7.repo 
+export ORACLE_YUM_GPG_KEY=RPM-GPG-KEY-oracle-ol7 
+
+rpm --import ${ORACLE_YUM_URL}/${ORACLE_YUM_GPG_KEY};
+curl -o /etc/yum.repos.d/${ORACLE_YUM_REPO} ${ORACLE_YUM_URL}/${ORACLE_YUM_REPO};
+sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/${ORACLE_YUM_REPO}; 
+yum-config-manager --enable ol7_oracle_instantclient;
+</code></pre><p>This allows <code>yum</code> to see the Instant Client packages. We install those next:</p>
+<pre><code>ACCEPT_EULA=Y sudo yum install -y \
+  libaio-devel \
+  oracle-instantclient18.3-basic \
+  oracle-instantclient18.3-sqlplus \
+  oracle-instantclient18.3-tools \
+  oracle-instantclient18.3-devel; 
+</code></pre><p><code>libaio-devel</code> is also a required package, per the <a href="https://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html">documentation</a>.</p>
+<ul>
+<li>ROracle</li>
+</ul>
+<p>Next, set the necessary environment variables for installing <code>ROracle</code>:</p>
+<pre><code>export OCI_LIB=${ORACLE_HOME}/lib 
+export OCI_INC=/usr/include/oracle/${ORACLE_INSTANT_CLIENT_VERSION}/client64 
+</code></pre><p><code>OCI_LIB</code> points to a folder where the <a href="http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html">shared libraries</a> will be. These shared libraries are <a href="http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html">dynamically linked shared object libraries</a> that the installation program will need in order to run. <code>OCI_INC</code> points to a folder containing <a href="https://unix.stackexchange.com/a/47415">header files</a>; these are collections of functions that other <code>C</code> programs can use through the <code>include</code> operator, e.g. <code>include oci.h</code>.</p>
+<p>The installation program will need to know where to look when it attempts to import the shared libraries. To that end, <a href="https://stackoverflow.com/a/36822521/5665947">we’ll leverage ldconfig</a>:</p>
+<pre><code>echo &quot;/usr/lib/oracle/18.3/client64/lib&quot; | sudo tee /etc/ld.so.conf.d/oracle.conf
+sudo ldconfig
+</code></pre><p>Per the <a href="http://man7.org/linux/man-pages/man8/ldconfig.8.html">documentation</a>, <code>ldconfig</code> creates the necessary links and cache to the libraries found in the <code>*.conf</code> files. So we create an <code>oracle.conf</code> file that tells <code>ldconfig</code> to create links for shared libraries in <code>/usr/lib/oracle/18.3/client64/lib</code>, a.k.a. the <code>OCI_LIB</code> folder.</p>
+<p>Finally, we install the <code>ROracle</code> package:</p>
+<pre><code>R -e &quot;install.packages('ROracle')&quot;
+</code></pre><ul>
+<li>Example</li>
+</ul>
+<p>I also have a docker-based example <a href="https://github.com/cjvirtucio87/todo-rscript-oracle/blob/babeffe937b3ed52cfa7e61b7280717009be4d7e/.dockerfile/Dockerfile">here</a>. It basically does everything enumerated in this guide, with the exception that the project uses <a href="https://rstudio.github.io/packrat/">packrat</a> for package management, and that the <code>ROracle</code> package is already identified in the <a href="https://github.com/cjvirtucio87/todo-rscript-oracle/blob/babeffe937b3ed52cfa7e61b7280717009be4d7e/packrat/packrat.lock">snapshot file</a>. It still has to re-install the <code>ROracle</code> (and other) packages, since the <code>lib</code> folder (where the packages are installed) isn’t checked into version control.</p>
+<hr>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="https://medium.com/analytics-vidhya/how-to-install-roracle-on-windows-10-144b0b923dac">资料需翻墙</a></p>
+</li>
+<li>
+<p><a href="https://medium.com/analytics-vidhya/how-to-install-roracle-on-windows-10-144b0b923dac">https://medium.com/analytics-vidhya/how-to-install-roracle-on-windows-10-144b0b923dac</a></p>
+</li>
+<li>
+<p><a href="https://www.cjvirtucio.co/posts/roracle-centos7/">https://www.cjvirtucio.co/posts/roracle-centos7/</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cran/ROracle/blob/master/INSTALL">https://github.com/cran/ROracle/blob/master/INSTALL</a></p>
+</li>
+</ul>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备44030602004537号</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

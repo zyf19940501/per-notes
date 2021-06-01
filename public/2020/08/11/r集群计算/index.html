@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.73.0" />
+
+
+<title>R集群计算 - 钟宇飞的博客</title>
+<meta property="og:title" content="R集群计算 - 钟宇飞的博客">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="http://www.zhongyufei.com/Rbook/_book">R Study</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">R集群计算</h1>
+
+    
+    <span class="article-date">2020-08-11</span>
+    
+
+    <div class="article-content">
+      <h3 id="r集群搭建以及并行计算">R集群搭建以及并行计算</h3>
+<h4 id="配置ssh免密登录">配置ssh免密登录</h4>
+<p>在两台IP地址不同的Linux(本次实验centos8)机器上面安装好R，然后每台机器都安装snow包，最后注意一点是，需要配置ssh的免密码登录，不同的linux用户需要配置自己的免密码登录，需要用到R集群的用户都需要使用自己的账户安装snow包。</p>
+<ul>
+<li>
+<p>检查是否需要密码登录</p>
+<p><code>ssh ip </code></p>
+</li>
+<li>
+<p>需要密码登录</p>
+<pre><code>ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+</code></pre></li>
+<li>
+<p>设置ssh免密到其他服务器</p>
+<pre><code>ssh-copy-id ip1
+ssh-copy-id 1p2
+ssh-copy-id 1p3
+</code></pre></li>
+<li>
+<p>删除免密</p>
+<p><code>vi ~/.ssh/authorized_keys</code></p>
+</li>
+<li>
+<p>删除免密</p>
+<p>&lt;https://blog.csdn.net/haveqing/article/details/106169760</p>
+</li>
+</ul>
+<h4 id="r中创建集群">R中创建集群</h4>
+<pre><code>library(snow)
+workerList &lt;- list(
+  list(host = &quot;47.116.48.107&quot;, port = 10187, outfile = &quot;~/log1.log&quot;, rshcmd = &quot;ssh -p 22&quot;),
+  list(host = &quot;198.130.61.74&quot;, port = 10187, outfile = &quot;~/log2.log&quot;, rshcmd = &quot;ssh -p 22&quot;))
+cl &lt;- makeCluster(workerList, type=&quot;SOCK&quot;, master=&quot;47.115.48.107&quot;)
+
+# system information
+clusterCall(cl, function() Sys.info()[c(&quot;nodename&quot;,&quot;machine&quot;)])
+
+#calculate
+results &lt;- clusterApply(cl,1:100,function(x) {x+1})
+
+#stopping a cluster
+stopCluster(cl)
+</code></pre><h3 id="参考资料">参考资料</h3>
+<p><a href="http://www.sfu.ca/~sblay/R/snow.html">http://www.sfu.ca/~sblay/R/snow.html</a></p>
+<p><a href="http://ugrad.stat.ubc.ca/R/library/snow/html/snow-startstop.html">http://ugrad.stat.ubc.ca/R/library/snow/html/snow-startstop.html</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备44030602004537号</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

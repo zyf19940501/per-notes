@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>连接数据库 on 钟宇飞的博客</title>
+    <link>/tags/%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 连接数据库 on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 06 Jul 2019 12:30:30 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vba连接数据库查询</title>
+      <link>/2019/07/06/vba/</link>
+      <pubDate>Sat, 06 Jul 2019 12:30:30 +0000</pubDate>
+      
+      <guid>/2019/07/06/vba/</guid>
+      <description>VBA代码 在Excle中插入宏代码保存，按照自己需求更改相应 sql 语句即可实现相应的功能。
+本宏实现获取最新门店库存的功能,sql语句为 SELECT * FROM [spb].[dbo].[BI_inventory_table] where convert(date,数据更新日期,23)= convert(date,GETDATE(),23)  。输入server_name 数据库 ip：localhost ，想要连接的数据库名：spb，DBA提供的数据库账户和密码 zhongyf,Zyf123456。
+Sub 获取最新库存() &amp;#39; Carl SQL Server Connection  &amp;#39;  &amp;#39; FOR THIS CODE TO WORK  &amp;#39; In VBE you need to go Tools References and check Microsoft Active X Data Objects 2.x library  &amp;#39;  Dim Cn As Object Dim Server_Name As String Dim Database_Name As String Dim User_ID As String Dim Password As String Dim SQLStr As String Dim rs As Object Set rs = CreateObject(&amp;#34;ADODB.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>split sheet on 钟宇飞的博客</title>
+    <link>/tags/split-sheet/</link>
+    <description>Recent content in split sheet on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 15 Jul 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/split-sheet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用VBA拆分Excel</title>
+      <link>/2018/07/15/vba/</link>
+      <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/07/15/vba/</guid>
+      <description>在工作过程中需要按照Sheet拆分Excel,VBA代码记录如下：
+&#39; split sheetSub SaveAs()On Error Resume NextDim FolderPath As String, FolderName As String, BN As StringDim ReturnValue As IntegerBN = ActiveWorkbook.NameFolderPath = ThisWorkbook.PathFolderName = Mid(BN, 1, InStrRev(BN, &amp;quot;.&amp;quot;, Len(BN)) - 1)Dim MyFile As ObjectSet MyFile = CreateObject(&amp;quot;Scripting.FileSystemObject&amp;quot;)If MyFile.folderexists(FolderPath &amp;amp; &amp;quot;\&amp;quot; &amp;amp; FolderName &amp;amp; &amp;quot;-Saved&amp;quot;) ThenReturnValue = MsgBox(&amp;quot;文件夹已存在，是否更新内容？&amp;quot;, vbOKCancel, &amp;quot;Caution!&amp;quot;)If ReturnValue = 2 Then Exit SubElseMyFile.CreateFolder (FolderPath &amp;amp; &amp;quot;\&amp;quot; &amp;amp; FolderName &amp;amp; &amp;quot;-Saved&amp;quot;)Set MyFile = NothingEnd IfApplication.</description>
+    </item>
+    
+  </channel>
+</rss>

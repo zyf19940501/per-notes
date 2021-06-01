@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.73.0" />
+
+
+<title>用R刷新透视表 - 钟宇飞的博客</title>
+<meta property="og:title" content="用R刷新透视表 - 钟宇飞的博客">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="http://www.zhongyufei.com/Rbook/_book">R Study</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">用R刷新透视表</h1>
+
+    
+    <span class="article-date">2020-07-26</span>
+    
+
+    <div class="article-content">
+      <p>在工作中需要批量刷新Excel透视表，现用R语言实现批量自动刷新。</p>
+<h3 id="准备vba代码">准备VBA代码</h3>
+<p>创建宏Excel 文件，另存为Refresh.xlsm，将宏命名为refresh。</p>
+<p>以下VB代码可实现Refresh.xlsm文件所在文件夹内的其余全部Excle 文件刷新。利用该功能可实现批量刷新。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vb" data-lang="vb"><span style="color:#66d9ef">Sub</span> <span style="color:#a6e22e">refresh</span>()
+<span style="color:#66d9ef">Dim</span> wb <span style="color:#f92672">As</span> Excel.Workbook
+x <span style="color:#f92672">=</span> ThisWorkbook.Path <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;\&#34;</span>
+f <span style="color:#f92672">=</span> Dir(x <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;*xls&#34;</span>)
+<span style="color:#66d9ef">Do</span> <span style="color:#66d9ef">While</span> f <span style="color:#f92672">&lt;&gt;</span> <span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">If</span> f <span style="color:#f92672">&lt;&gt;</span> ThisWorkbook.Name <span style="color:#66d9ef">Then</span>
+<span style="color:#66d9ef">Set</span> wb <span style="color:#f92672">=</span> Workbooks.Open(x <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">&amp;</span> f)
+    ActiveWorkbook.RefreshAll
+    wb.Save
+    wb.Close
+    <span style="color:#66d9ef">End</span> <span style="color:#66d9ef">If</span>
+    f <span style="color:#f92672">=</span> Dir
+    <span style="color:#66d9ef">Loop</span>
+<span style="color:#66d9ef">End</span> <span style="color:#66d9ef">Sub</span>
+</code></pre></div><h3 id="文件结构">文件结构</h3>
+<p>创建文件夹refresh_backup,然后将需要刷新的文件放入其中。</p>
+<p>当透视表是通过连接数据库如MSSQL得到的透视表，利用Power Pivot 的Dax 建模的透视表在刷新时需要输入密码，需提前设置刷新时不需要密码。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">├─华东区
+│      刷新数据.xlsm
+│      华东商品数据.xlsx
+│      华东商品数据上海市.xlsx
+│      华东商品数据加盟.xlsx
+│      华东商品数据杭州市.xlsx
+│      华东商品数据直营.xlsx
+│
+├─华北区
+│      刷新数据.xlsm
+│      华北商品数据加盟.xlsx
+│      华北商品数据直营.xlsx
+│
+├─华南区
+│      刷新数据.xlsm
+│      华南商品数据.xlsx
+│      华南商品数据加盟.xlsx
+│
+├─华西区
+│      刷新数据.xlsm
+│      华西商品数据.xlsx
+│      华西商品数据加盟.xlsx
+│      华西商品数据成都市.xlsx
+│      华西商品数据直营.xlsx
+│
+└─日报
+        daily-report.xlsx
+        刷新数据.xlsm
+</code></pre></div><h3 id="r调用">R调用</h3>
+<p>当需要刷新的表格较多时，可利用future.apply包并行刷新。</p>
+<p>文件路径需要完整路径</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(RDCOMClient)
+<span style="color:#a6e22e">library</span>(future.apply)
+
+<span style="color:#75715e">#需要刷新的Excel</span>
+xlxlfiles <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./refresh_backup&#39;</span>,pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.xlsx&#39;</span>,full.names<span style="color:#f92672">=</span>T,recursive <span style="color:#f92672">=</span> T)
+<span style="color:#75715e">#文件夹中的宏文件</span>
+xlsmfiles <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list.files</span>(path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./refresh_backup&#39;</span>,pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.xlsm&#39;</span>,full.names<span style="color:#f92672">=</span>T,recursive <span style="color:#f92672">=</span> T)
+
+<span style="color:#75715e">#define function</span>
+Excel_refresh_fun <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(filename){
+  xlApp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">COMCreate</span>(<span style="color:#e6db74">&#34;Excel.Application&#34;</span>)
+  xlWbk <span style="color:#f92672">&lt;-</span> xlApp<span style="color:#f92672">$</span><span style="color:#a6e22e">Workbooks</span>()<span style="color:#f92672">$</span><span style="color:#a6e22e">Open</span>(filename)
+  <span style="color:#75715e"># this line of code might be necessary if you want to see your spreadsheet:</span>
+  xlApp[[<span style="color:#e6db74">&#39;Visible&#39;</span>]] <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">FALSE</span> 
+  <span style="color:#75715e"># Run the macro called &#34;refresh&#34;:</span>
+  xlApp<span style="color:#f92672">$</span><span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;refresh&#34;</span>)
+  <span style="color:#75715e"># Close the workbook and quit the app:</span>
+  xlWbk<span style="color:#f92672">$</span><span style="color:#a6e22e">Close</span>(<span style="color:#66d9ef">FALSE</span>)
+  xlApp<span style="color:#f92672">$</span><span style="color:#a6e22e">Quit</span>()
+}
+
+tictoc<span style="color:#f92672">::</span><span style="color:#a6e22e">tic</span>() 
+<span style="color:#a6e22e">plan</span>(multisession) <span style="color:#75715e">## Run in parallel on local computer</span>
+<span style="color:#a6e22e">future_lapply</span>(xlsmfiles,fun2)
+tictoc<span style="color:#f92672">::</span><span style="color:#a6e22e">toc</span>()
+
+</code></pre></div><p>Python调用</p>
+<p>路径用完整路径,以下代码可刷新文件夹内其他Excel 文件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> win32com.client
+xls <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;Excel.Application&#34;</span>)
+xls<span style="color:#f92672">.</span>Workbooks<span style="color:#f92672">.</span>Open(<span style="color:#e6db74">&#34;C:/Users/zhongyf/Desktop/区域商品运营周报模板/刷新数据.xlsm&#34;</span>)
+xls<span style="color:#f92672">.</span>Application<span style="color:#f92672">.</span>Run(<span style="color:#e6db74">&#34;refresh&#34;</span>)
+xls<span style="color:#f92672">.</span>Application<span style="color:#f92672">.</span>Quit()
+</code></pre></div><h3 id="定时任务">定时任务</h3>
+<p>利用taskscheduleR包实现在win系统执行定时任务,避免中文乱码问题，把真正需要执行的代码包装，如下所示:</p>
+<p>refreshtask.R 内如如下：</p>
+<p>refresh.R 是上面待执行的刷新代码，利用refreshtask.R把代码全部包装起来。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#39;C:/Users/admin/Desktop/refresh_backup/refresh.R&#39;</span>,encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;utf-8&#39;</span>)<span style="color:#75715e"># 需全路径  可避免代码中文问题</span>
+</code></pre></div><p>设置定时任务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(taskscheduleR)
+myscript <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;C:/Users/admin/Desktop/refresh_backup/refreshtask.R&#34;</span>
+<span style="color:#75715e">#设置任务 启动任务周期 开始时间等</span>
+<span style="color:#a6e22e">taskscheduler_create</span>(taskname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Excel刷新任务2&#34;</span>, rscript <span style="color:#f92672">=</span> myscript, 
+                     schedule <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DAILY&#34;</span>, starttime <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;08:45&#34;</span>,startdate <span style="color:#f92672">=</span> <span style="color:#a6e22e">format</span>(<span style="color:#a6e22e">Sys.Date</span>(), <span style="color:#e6db74">&#34;%Y/%m/%d&#34;</span>))
+<span style="color:#75715e">#taskscheduler_delete(&#39;Excel刷新任务2&#39;)</span>
+<span style="color:#a6e22e">taskscheduler_runnow</span>(<span style="color:#e6db74">&#39;Excel刷新任务2&#39;</span>)
+</code></pre></div>
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备44030602004537号</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

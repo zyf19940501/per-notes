@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.73.0" />
+
+
+<title>vba连接数据库查询 - 钟宇飞的博客</title>
+<meta property="og:title" content="vba连接数据库查询 - 钟宇飞的博客">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="http://www.zhongyufei.com/Rbook/_book">R Study</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">vba连接数据库查询</h1>
+
+    
+    <span class="article-date">2019-07-06</span>
+    
+
+    <div class="article-content">
+      <h4 id="vba代码">VBA代码</h4>
+<p>在Excle中插入宏代码保存，按照自己需求更改相应 sql 语句即可实现相应的功能。</p>
+<p>本宏实现获取最新门店库存的功能,sql语句为 <code>SELECT  * FROM [spb].[dbo].[BI_inventory_table] where convert(date,数据更新日期,23)= convert(date,GETDATE(),23) </code> 。输入server_name 数据库 ip：localhost ，想要连接的数据库名：spb，DBA提供的数据库账户和密码 zhongyf,Zyf123456。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vb" data-lang="vb"><span style="color:#66d9ef">Sub</span> <span style="color:#a6e22e">获取最新库存</span>()
+     <span style="color:#75715e">&#39; Carl SQL Server Connection
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">&#39;
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">&#39; FOR THIS CODE TO WORK
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">&#39; In VBE you need to go Tools References and check Microsoft Active X Data Objects 2.x library
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">&#39;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">Dim</span> Cn <span style="color:#f92672">As</span> <span style="color:#66d9ef">Object</span>
+    <span style="color:#66d9ef">Dim</span> Server_Name <span style="color:#f92672">As</span> <span style="color:#66d9ef">String</span>
+    <span style="color:#66d9ef">Dim</span> Database_Name <span style="color:#f92672">As</span> <span style="color:#66d9ef">String</span>
+    <span style="color:#66d9ef">Dim</span> User_ID <span style="color:#f92672">As</span> <span style="color:#66d9ef">String</span>
+    <span style="color:#66d9ef">Dim</span> Password <span style="color:#f92672">As</span> <span style="color:#66d9ef">String</span>
+    <span style="color:#66d9ef">Dim</span> SQLStr <span style="color:#f92672">As</span> <span style="color:#66d9ef">String</span>
+    <span style="color:#66d9ef">Dim</span> rs <span style="color:#f92672">As</span> <span style="color:#66d9ef">Object</span>
+    <span style="color:#66d9ef">Set</span> rs <span style="color:#f92672">=</span> CreateObject(<span style="color:#e6db74">&#34;ADODB.Recordset&#34;</span>)
+
+    Server_Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span> <span style="color:#75715e">&#39; Enter your server name here
+</span><span style="color:#75715e"></span>    Database_Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;spb&#34;</span> <span style="color:#75715e">&#39; Enter your database name here
+</span><span style="color:#75715e"></span>    User_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zhongyf&#34;</span> <span style="color:#75715e">&#39; enter your user ID here
+</span><span style="color:#75715e"></span>    Password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Zyf123456&#34;</span> <span style="color:#75715e">&#39; Enter your password here
+</span><span style="color:#75715e"></span>    
+    SQLStr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SELECT  * FROM [spb].[dbo].[BI_inventory_table] where convert(date,数据更新日期,23)= convert(date,GETDATE(),23)  &#34;</span> <span style="color:#75715e">&#39; Enter your SQL here
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">Set</span> Cn <span style="color:#f92672">=</span> CreateObject(<span style="color:#e6db74">&#34;ADODB.Connection&#34;</span>)
+    Cn.Open <span style="color:#e6db74">&#34;Driver={SQL Server};Server=&#34;</span> <span style="color:#f92672">&amp;</span> Server_Name <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;;Database=&#34;</span> <span style="color:#f92672">&amp;</span> Database_Name <span style="color:#f92672">&amp;</span> _
+    <span style="color:#e6db74">&#34;;Uid=&#34;</span> <span style="color:#f92672">&amp;</span> User_ID <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;;Pwd=&#34;</span> <span style="color:#f92672">&amp;</span> Password <span style="color:#f92672">&amp;</span> <span style="color:#e6db74">&#34;;&#34;</span>
+
+    rs.Open SQLStr, Cn, adOpenStatic
+     <span style="color:#75715e">&#39; Dump to spreadsheet
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">With</span> Worksheets(<span style="color:#e6db74">&#34;sheet1&#34;</span>).Range(<span style="color:#e6db74">&#34;a1:z500&#34;</span>) <span style="color:#75715e">&#39; Enter your sheet name and range here
+</span><span style="color:#75715e"></span>        .ClearContents
+        .CopyFromRecordset rs
+    <span style="color:#66d9ef">End</span> <span style="color:#66d9ef">With</span>
+     <span style="color:#75715e">&#39;            Tidy up
+</span><span style="color:#75715e"></span>    rs.Close
+    <span style="color:#66d9ef">Set</span> rs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span>
+    Cn.Close
+    <span style="color:#66d9ef">Set</span> Cn <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span>
+<span style="color:#66d9ef">End</span> <span style="color:#66d9ef">Sub</span>
+</code></pre></div>
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备44030602004537号</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

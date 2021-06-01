@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pivot table on 钟宇飞的博客</title>
+    <link>/tags/pivot-table/</link>
+    <description>Recent content in pivot table on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/pivot-table/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>用R刷新透视表</title>
+      <link>/2020/07/26/refresh-excel-pivot-table-use-r/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/26/refresh-excel-pivot-table-use-r/</guid>
+      <description>在工作中需要批量刷新Excel透视表，现用R语言实现批量自动刷新。
+准备VBA代码 创建宏Excel 文件，另存为Refresh.xlsm，将宏命名为refresh。
+以下VB代码可实现Refresh.xlsm文件所在文件夹内的其余全部Excle 文件刷新。利用该功能可实现批量刷新。
+Sub refresh() Dim wb As Excel.Workbook x = ThisWorkbook.Path &amp;amp; &amp;#34;\&amp;#34; f = Dir(x &amp;amp; &amp;#34;&amp;#34; &amp;amp; &amp;#34;*xls&amp;#34;) Do While f &amp;lt;&amp;gt; &amp;#34;&amp;#34; If f &amp;lt;&amp;gt; ThisWorkbook.Name Then Set wb = Workbooks.Open(x &amp;amp; &amp;#34;&amp;#34; &amp;amp; f) ActiveWorkbook.RefreshAll wb.Save wb.Close End If f = Dir Loop End Sub 文件结构 创建文件夹refresh_backup,然后将需要刷新的文件放入其中。
+当透视表是通过连接数据库如MSSQL得到的透视表，利用Power Pivot 的Dax 建模的透视表在刷新时需要输入密码，需提前设置刷新时不需要密码。
+├─华东区 │ 刷新数据.xlsm │ 华东商品数据.xlsx │ 华东商品数据上海市.xlsx │ 华东商品数据加盟.xlsx │ 华东商品数据杭州市.xlsx │ 华东商品数据直营.</description>
+    </item>
+    
+  </channel>
+</rss>

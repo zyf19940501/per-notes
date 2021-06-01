@@ -88,6 +88,16 @@ sudo systemctl status shiny-server</description>
     </item>
     
     <item>
+      <title>ODBC Driver 17 for SQL Server VS SQL Server</title>
+      <link>/2020/07/28/t/</link>
+      <pubDate>Tue, 28 Jul 2020 11:30:57 +0000</pubDate>
+      
+      <guid>/2020/07/28/t/</guid>
+      <description>在使用DBI包向数据库MSSQL导入数据时,发现更改连接驱动,效率有明显提升。现记录如下：
+环境sessionInfo()R 查看本机现有驱动library(odbc)drivers_tbl &amp;lt;- odbc::odbcListDrivers()head(drivers_tbl)模拟数据library(data.table)n &amp;lt;- 1e5dt &amp;lt;- data.table(a=1:n,b=rep(&amp;#39;a&amp;#39;,n),d=1:n * 1e4)测试con_1 &amp;lt;- dbConnect(odbc::odbc(), .connection_string = &amp;quot;driver={ODBC Driver 17 for SQL Server};server=G1001014\\NEWMSSQL;database=test;uid=sa;pwd=123456&amp;quot;, timeout = 10)con_2 &amp;lt;- dbConnect(odbc::odbc(), .connection_string = &amp;quot;driver={SQL Server};server=G1001014\\NEWMSSQL;database=test;uid=sa;pwd=123456&amp;quot;, timeout = 10)#测试次数nn &amp;lt;- 10result_1 &amp;lt;- vector(length = nn)result_2 &amp;lt;- vector(length = nn)for(i in 1:nn){#con_1tictoc::tic()DBI::dbWriteTable(conn = con_1,name = &amp;#39;test_table&amp;#39;,value = dt,overwrite=T)a &amp;lt;- tictoc::toc()result_1[i] &amp;lt;- a$toc-a$tic#con_2tictoc::tic()DBI::dbWriteTable(conn = con_2,name = &amp;#39;test_table&amp;#39;,value = dt,overwrite=T)a &amp;lt;- tictoc::toc()result_2[i] &amp;lt;- a$toc-a$tic}差异比较mean(result_1)mean(result_2)</description>
+    </item>
+    
+    <item>
       <title>用R刷新透视表</title>
       <link>/2020/07/26/refresh-excel-pivot-table-use-r/</link>
       <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
@@ -155,6 +165,17 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2sudo yum-config
 dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
 安装 docker sudo yum install docker-ce docker-ce-cli
 sudo systemctl start dockerdocker --version#开机自启sudo systemctl enable docker 安装 rstudio-server  参考资料 https://hub.</description>
+    </item>
+    
+    <item>
+      <title>Hello R Markdown</title>
+      <link>/2015/07/23/hello-r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/2015/07/23/hello-r-markdown/</guid>
+      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+You can embed an R code chunk like this:
+summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.</description>
     </item>
     
   </channel>

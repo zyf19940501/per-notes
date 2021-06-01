@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data manipulation on 钟宇飞的博客</title>
+    <link>/categories/data-manipulation/</link>
+    <description>Recent content in data manipulation on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/data-manipulation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data manipulation use dplyr package</title>
+      <link>/2020/09/28/data-manipulation-use-dplyr-package/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/28/data-manipulation-use-dplyr-package/</guid>
+      <description>前言dplyr包是tidyverse系列中的核心包之一,dplyr包提供了一组一致的动词来解决最常见的数据处理难题：
+mutate() 添加新变量,是现有变量得函数
+select() 筛选列,根据现有变量名称选这变量
+filter() 筛选行，根据条件筛选
+summarise() 按照一定条件汇总聚合
+arrange() 行排序
+安装## 最简单是的方式就是安装tidyverseinstall.packages(&amp;#39;tidyverse&amp;#39;)## 或者仅仅安装 tidyr:install.packages(&amp;#39;dplyr&amp;#39;)## 或者从github 安装开发版本## install.packages(&amp;quot;devtools&amp;quot;)devtools::install_github(&amp;quot;tidyverse/dplyr&amp;quot;)# CTEST CODE基础用法library(dplyr)filter单条件筛选starwars %&amp;gt;% filter(species == &amp;quot;Droid&amp;quot;)## # A tibble: 6 x 14## name height mass hair_color skin_color eye_color birth_year sex gender ## &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; ## 1 C-3PO 167 75 &amp;lt;NA&amp;gt; gold yellow 112 none masculi~## 2 R2-D2 96 32 &amp;lt;NA&amp;gt; white, blue red 33 none masculi~## 3 R5-D4 97 32 &amp;lt;NA&amp;gt; white, red red NA none masculi~## 4 IG-88 200 140 none metal red 15 none masculi~## 5 R4-P17 96 NA none silver, red red, blue NA none feminine## 6 BB8 NA NA none none black NA none masculi~## # .</description>
+    </item>
+    
+  </channel>
+</rss>

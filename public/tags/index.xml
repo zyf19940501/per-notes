@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>openxlsx</title>
+      <link>/tags/openxlsx/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/openxlsx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>git study</title>
       <link>/tags/git-study/</link>
       <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
@@ -75,11 +84,56 @@
     </item>
     
     <item>
+      <title>html table</title>
+      <link>/tags/html-table/</link>
+      <pubDate>Sat, 24 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/html-table/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>plumber</title>
       <link>/tags/plumber/</link>
       <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/plumber/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dplyr package</title>
+      <link>/tags/dplyr-package/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dplyr-package/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidyr package</title>
+      <link>/tags/tidyr-package/</link>
+      <pubDate>Sun, 27 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidyr-package/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html</title>
+      <link>/tags/html/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>table</title>
+      <link>/tags/table/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/table/</guid>
       <description></description>
     </item>
     
@@ -107,6 +161,15 @@
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/shiny/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ODBC Driver</title>
+      <link>/tags/odbc-driver/</link>
+      <pubDate>Tue, 28 Jul 2020 11:30:57 +0000</pubDate>
+      
+      <guid>/tags/odbc-driver/</guid>
       <description></description>
     </item>
     
@@ -224,6 +287,33 @@
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/split-sheet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plot</title>
+      <link>/tags/plot/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/tags/plot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R Markdown</title>
+      <link>/tags/r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/tags/r-markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>regression</title>
+      <link>/tags/regression/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     

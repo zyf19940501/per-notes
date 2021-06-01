@@ -27,3 +27,16 @@ library(dplyr)
 # 添加中文注释
 ```
 
+想要如上显示不是斜体的中文注释该如何呢？通过在正文中引入css即可。
+
+```{r eval=FALSE}
+<html>
+<style> 
+.hljs-comment{
+  font-family: Microsoft YaHei ;
+  font-style: normal;
+}
+</style>
+</html>
+```
+

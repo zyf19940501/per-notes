@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 钟宇飞的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 14 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>blogdown-comment-font</title>
+      <link>/2021/06/01/blogdown-comment-font/</link>
+      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/01/blogdown-comment-font/</guid>
+      <description> .hljs-comment{font-family: Microsoft YaHei ;font-style: normal;}加载包library(dplyr)## ## 载入程辑包：&amp;#39;dplyr&amp;#39;## The following objects are masked from &amp;#39;package:stats&amp;#39;:## ## filter, lag## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## intersect, setdiff, setequal, union# 添加中文注释</description>
+    </item>
     
     <item>
       <title>使用prophet预测销售额</title>
@@ -21,6 +30,31 @@
 先知可以在R中和Python中实现预测，并且速度快，提供自动化的预测，或手工调整。官网上的介绍：
 Prophet is a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly, and daily seasonality, plus holiday effects. It works best with time series that have strong seasonal effects and several seasons of historical data. Prophet is robust to missing data and shifts in the trend, and typically handles outliers well.
 Prophet is open source software released by Facebook’s Core Data Science team.</description>
+    </item>
+    
+    <item>
+      <title>R包-openxlsx学习</title>
+      <link>/2021/01/28/openxlsx/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/01/28/openxlsx/</guid>
+      <description>前言openxlsx是当我需要定制输出Excel表格或报表时常用R包。目前该包的版本4.2.3，通过使用Rcpp，包的读写速度在Excel的百万级下是可接受状态,包的相关函数功能完善且简易好用，并且正在积极开发中，相信它以后会越来越好用。本着学习以及熟悉函数功能目的，所以有了本文，文中大部分案例是都官方案例，推荐直接阅读官方资料。项目地址如下：
+openxlsx官方项目地址
+个人使用下来主要优势：
+不依赖java环境，很重要的一点
+读写速度可接受
+可设置条件格式，与Excel中『开始』选项卡的条件格式功能接近
+可批量插入ggplot2图
+可插入公式
+可渲染大部分Excel格式，并且效率相比部分python包高效
+可添加页眉页脚以及其他格式，方便直接打印
+功能完善并且在积极开发中
+本文使用版本信息如下:
+packageVersion(&amp;quot;openxlsx&amp;quot;)#&amp;gt; [1] &amp;#39;4.2.3&amp;#39;Ps:当数据量较大时，目前采用writexl::write_xlsx(dt,&#39;test.xlsx&#39;)输出Excel文件，这是我知道的现阶段输出Excel格式速度最快的包。该包的函数很简单，主要就是write_xlsx()功能。
+安装稳定版
+# 稳定版install.packages(&amp;quot;openxlsx&amp;quot;, dependencies = TRUE, repos = &amp;quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&amp;quot;)开发版
+install.packages(c(&amp;quot;Rcpp&amp;quot;, &amp;quot;devtools&amp;quot;), dependencies = TRUE)library(devtools)install_github(&amp;quot;ycphs/openxlsx&amp;quot;)基础读写功能library(openxlsx)读取Excelread.xlsx()是读取函数，主要参数如下：
+read.xlsx(xlsxFile,sheet = 1,startRow = 1,colNames = TRUE,rowNames = FALSE,detectDates = FALSE,skipEmptyRows = TRUE,skipEmptyCols = TRUE,rows = NULL,cols = NULL,check.</description>
     </item>
     
     <item>
@@ -101,6 +135,21 @@ dt %&amp;gt;%mutate(观看数区间 = cut(x = viewCount, breaks = c(0, 1e7, 2e7
     </item>
     
     <item>
+      <title>R交互表格-reactable</title>
+      <link>/2020/10/24/reactable-study/</link>
+      <pubDate>Sat, 24 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/10/24/reactable-study/</guid>
+      <description>介绍本文主要是翻译部分官方用法介绍,从而达到了解学习reactable包的目的。可用该包制作R的交互式数据表,在Rmarkdown或者shiny中都可使用,可自定义主题,可自定义CSS,自定义JS。
+想直接查看原网址，请点击官方Github地址。
+安装install.packages(&amp;quot;reactable&amp;quot;)devtools::install_github(&amp;quot;glin/reactable&amp;quot;)用法library(reactable)reactable(iris){&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;Sepal.Length&#34;:[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],&#34;Sepal.Width&#34;:[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],&#34;Petal.Length&#34;:[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],&#34;Petal.Width&#34;:[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],&#34;Species&#34;:[&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;]},&#34;columns&#34;:[{&#34;accessor&#34;:&#34;Sepal.Length&#34;,&#34;name&#34;:&#34;Sepal.Length&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Sepal.Width&#34;,&#34;name&#34;:&#34;Sepal.Width&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Petal.Length&#34;,&#34;name&#34;:&#34;Petal.Length&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Petal.Width&#34;,&#34;name&#34;:&#34;Petal.Width&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Species&#34;,&#34;name&#34;:&#34;Species&#34;,&#34;type&#34;:&#34;factor&#34;}],&#34;defaultPageSize&#34;:10,&#34;paginationType&#34;:&#34;numbers&#34;,&#34;showPageInfo&#34;:true,&#34;minRows&#34;:1,&#34;dataKey&#34;:&#34;06335fb869e56cffc43ca66fd95baaec&#34;,&#34;key&#34;:&#34;06335fb869e56cffc43ca66fd95baaec&#34;},&#34;children&#34;:[]},&#34;class&#34;:&#34;reactR_markup&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}可以在R markdown文档中使用
+也可以在Shiny app中使用:
+library(shiny)library(reactable)ui &amp;lt;- fluidPage(reactableOutput(&amp;quot;table&amp;quot;))server &amp;lt;- function(input, output) {output$table &amp;lt;- renderReactable({reactable(iris)})}shinyApp(ui, server)示例基础用法用reactable()创建表格,该表格默认为可排序和分页:
+library(reactable)reactable(iris){&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;Sepal.Length&#34;:[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],&#34;Sepal.Width&#34;:[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],&#34;Petal.Length&#34;:[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],&#34;Petal.Width&#34;:[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],&#34;Species&#34;:[&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;]},&#34;columns&#34;:[{&#34;accessor&#34;:&#34;Sepal.Length&#34;,&#34;name&#34;:&#34;Sepal.Length&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Sepal.Width&#34;,&#34;name&#34;:&#34;Sepal.Width&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Petal.Length&#34;,&#34;name&#34;:&#34;Petal.Length&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Petal.Width&#34;,&#34;name&#34;:&#34;Petal.Width&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Species&#34;,&#34;name&#34;:&#34;Species&#34;,&#34;type&#34;:&#34;factor&#34;}],&#34;defaultPageSize&#34;:10,&#34;paginationType&#34;:&#34;numbers&#34;,&#34;showPageInfo&#34;:true,&#34;minRows&#34;:1,&#34;dataKey&#34;:&#34;06335fb869e56cffc43ca66fd95baaec&#34;,&#34;key&#34;:&#34;06335fb869e56cffc43ca66fd95baaec&#34;},&#34;children&#34;:[]},&#34;class&#34;:&#34;reactR_markup&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}定义列由colDef()创建列定义的列表可自己定义列:
+reactable(iris[1:5, ], columns = list(Sepal.Length = colDef(name = &amp;quot;Sepal Length&amp;quot;),Sepal.</description>
+    </item>
+    
+    <item>
       <title>Deploy plumber with docker</title>
       <link>/2020/10/13/deploy-plumber-with-docker/</link>
       <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
@@ -110,6 +159,54 @@ dt %&amp;gt;%mutate(观看数区间 = cut(x = viewCount, breaks = c(0, 1e7, 2e7
 构建dockerfile 从r-base构建R环境,然后安装R中安装包需要的环境如：libxml2-dev,libssl-dev等，但是linux系统命令都不太理解，以下代码为拼凑起来。
 其中 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \ 等部分可以参考微软官网，官网详细列出了各系统安装odbc驱动的代码。
 FROM r-baseRUN apt-get update -qq &amp;amp;&amp;amp; apt-get install -y \git-core \libssl-dev \libcurl4-gnutls-devRUN apt-get update \&amp;amp;&amp;amp; apt-get install --yes --no-install-recommends \apt-transport-https \curl \gnupg \unixodbc-dev \libxml2-dev \libcurl4-openssl-dev \libssl-dev \libsodium-dev \&amp;amp;&amp;amp; curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \&amp;amp;&amp;amp; curl https://packages.</description>
+    </item>
+    
+    <item>
+      <title>Data manipulation use dplyr package</title>
+      <link>/2020/09/28/data-manipulation-use-dplyr-package/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/28/data-manipulation-use-dplyr-package/</guid>
+      <description>前言dplyr包是tidyverse系列中的核心包之一,dplyr包提供了一组一致的动词来解决最常见的数据处理难题：
+mutate() 添加新变量,是现有变量得函数
+select() 筛选列,根据现有变量名称选这变量
+filter() 筛选行，根据条件筛选
+summarise() 按照一定条件汇总聚合
+arrange() 行排序
+安装## 最简单是的方式就是安装tidyverseinstall.packages(&amp;#39;tidyverse&amp;#39;)## 或者仅仅安装 tidyr:install.packages(&amp;#39;dplyr&amp;#39;)## 或者从github 安装开发版本## install.packages(&amp;quot;devtools&amp;quot;)devtools::install_github(&amp;quot;tidyverse/dplyr&amp;quot;)# CTEST CODE基础用法library(dplyr)filter单条件筛选starwars %&amp;gt;% filter(species == &amp;quot;Droid&amp;quot;)## # A tibble: 6 x 14## name height mass hair_color skin_color eye_color birth_year sex gender ## &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; ## 1 C-3PO 167 75 &amp;lt;NA&amp;gt; gold yellow 112 none masculi~## 2 R2-D2 96 32 &amp;lt;NA&amp;gt; white, blue red 33 none masculi~## 3 R5-D4 97 32 &amp;lt;NA&amp;gt; white, red red NA none masculi~## 4 IG-88 200 140 none metal red 15 none masculi~## 5 R4-P17 96 NA none silver, red red, blue NA none feminine## 6 BB8 NA NA none none black NA none masculi~## # .</description>
+    </item>
+    
+    <item>
+      <title>Tidy data use tidyr package</title>
+      <link>/2020/09/27/tidy-data-use-tidyr-package/</link>
+      <pubDate>Sun, 27 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/27/tidy-data-use-tidyr-package/</guid>
+      <description>前言tidyr包是tidyverse系列中的核心包,tidyr包的核心目的是整洁数据，有以下特征：
+每列都是一个变量每行都是一个记录每个单元格都是一个值在日常使用数据过程中，这种数据存储方式是一种标准的数据存储方式，像关系型数据中数据的存储。
+安装## 最简单是的方式就是安装tidyverseinstall.packages(&amp;#39;tidyverse&amp;#39;)## 或者仅仅安装 tidyr:install.packages(&amp;#39;tidyr&amp;#39;)## 或者从github 安装开发版本## install.packages(&amp;quot;devtools&amp;quot;)devtools::install_github(&amp;quot;tidyverse/tidyr&amp;quot;)# CTEST CODE主要功能library(tidyr)tidyr包中的函数可以分为5个主要大类
+pivot_longer() 和 pivot_wider() 宽转长以及长转宽
+unnest_longer() 和 unnest_wider(),hoist() 将列表嵌套转化为整洁数据
+nest() 数据嵌套
+separate(),extract()拆分列,提取新列
+replace_na() 缺失值处理
+宽转长详情查看vignette(&#34;pivot&#34;),以下是照搬该图册中的内容
+基础长数据与宽数据之间的转换，类似我们常用的EXcel中的透视表功能。接下来用tidyr包自带的插图案例记录相关函数用法
+在Excel中有时候方便我们肉眼观察，可能一个数据集会有很多列,如下所示：
+col1col2col3col4col5col6col7v1v2v3v4v5v6v7vb1vb2vb3vb4vb5vb6vb7方便观察，但是不方便统计分析，这是我们需要把数据做处理，从“宽数据变成长数据”即宽转长。</description>
+    </item>
+    
+    <item>
+      <title>Reactable Study</title>
+      <link>/2020/09/18/reactable-study/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/18/reactable-study/</guid>
+      <description>介绍安装用法示例基础用法定义列排序筛选查找分页分组聚合列样式自定义渲染嵌套表格条件样式主题列分组列大小调整跨小部件交互介绍本文主要是翻译部分官方用法介绍,从而达到了解学习reactable包的目的。可用该包制作R的交互式数据表,在Rmarkdown或者shiny中都可使用,可自定义主题,可自定义CSS,自定义JS。
+想直接查看原网址，请点击官方Github地址。
+安装install.packages(&amp;quot;reactable&amp;quot;)devtools::install_github(&amp;quot;glin/reactable&amp;quot;)用法library(reactable)reactable(iris){&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;Sepal.Length&#34;:[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],&#34;Sepal.Width&#34;:[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],&#34;Petal.Length&#34;:[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],&#34;Petal.Width&#34;:[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],&#34;Species&#34;:[&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;setosa&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;versicolor&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;,&#34;virginica&#34;]},&#34;columns&#34;:[{&#34;accessor&#34;:&#34;Sepal.Length&#34;,&#34;name&#34;:&#34;Sepal.Length&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Sepal.Width&#34;,&#34;name&#34;:&#34;Sepal.Width&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Petal.Length&#34;,&#34;name&#34;:&#34;Petal.Length&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Petal.Width&#34;,&#34;name&#34;:&#34;Petal.Width&#34;,&#34;type&#34;:&#34;numeric&#34;},{&#34;accessor&#34;:&#34;Species&#34;,&#34;name&#34;:&#34;Species&#34;,&#34;type&#34;:&#34;factor&#34;}],&#34;defaultPageSize&#34;:10,&#34;paginationType&#34;:&#34;numbers&#34;,&#34;showPageInfo&#34;:true,&#34;minRows&#34;:1,&#34;dataKey&#34;:&#34;06335fb869e56cffc43ca66fd95baaec&#34;,&#34;key&#34;:&#34;06335fb869e56cffc43ca66fd95baaec&#34;},&#34;children&#34;:[]},&#34;class&#34;:&#34;reactR_markup&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}可以在R markdown文档中使用
+也可以在Shiny app中使用:
+library(shiny)library(reactable)ui &amp;lt;- fluidPage(reactableOutput(&amp;quot;table&amp;quot;))server &amp;lt;- function(input, output) {output$table &amp;lt;- renderReactable({reactable(iris)})}shinyApp(ui, server)示例基础用法用reactable()创建表格,该表格默认为可排序和分页:</description>
     </item>
     
     <item>
@@ -195,6 +292,16 @@ sudo systemctl status shiny-server</description>
     </item>
     
     <item>
+      <title>ODBC Driver 17 for SQL Server VS SQL Server</title>
+      <link>/2020/07/28/t/</link>
+      <pubDate>Tue, 28 Jul 2020 11:30:57 +0000</pubDate>
+      
+      <guid>/2020/07/28/t/</guid>
+      <description>在使用DBI包向数据库MSSQL导入数据时,发现更改连接驱动,效率有明显提升。现记录如下：
+环境sessionInfo()R 查看本机现有驱动library(odbc)drivers_tbl &amp;lt;- odbc::odbcListDrivers()head(drivers_tbl)模拟数据library(data.table)n &amp;lt;- 1e5dt &amp;lt;- data.table(a=1:n,b=rep(&amp;#39;a&amp;#39;,n),d=1:n * 1e4)测试con_1 &amp;lt;- dbConnect(odbc::odbc(), .connection_string = &amp;quot;driver={ODBC Driver 17 for SQL Server};server=G1001014\\NEWMSSQL;database=test;uid=sa;pwd=123456&amp;quot;, timeout = 10)con_2 &amp;lt;- dbConnect(odbc::odbc(), .connection_string = &amp;quot;driver={SQL Server};server=G1001014\\NEWMSSQL;database=test;uid=sa;pwd=123456&amp;quot;, timeout = 10)#测试次数nn &amp;lt;- 10result_1 &amp;lt;- vector(length = nn)result_2 &amp;lt;- vector(length = nn)for(i in 1:nn){#con_1tictoc::tic()DBI::dbWriteTable(conn = con_1,name = &amp;#39;test_table&amp;#39;,value = dt,overwrite=T)a &amp;lt;- tictoc::toc()result_1[i] &amp;lt;- a$toc-a$tic#con_2tictoc::tic()DBI::dbWriteTable(conn = con_2,name = &amp;#39;test_table&amp;#39;,value = dt,overwrite=T)a &amp;lt;- tictoc::toc()result_2[i] &amp;lt;- a$toc-a$tic}差异比较mean(result_1)mean(result_2)</description>
+    </item>
+    
+    <item>
       <title>用R刷新透视表</title>
       <link>/2020/07/26/refresh-excel-pivot-table-use-r/</link>
       <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
@@ -236,6 +343,16 @@ Sys.which(&#39;make&#39;)  安装包
 可以直接在安装命令中修改安装镜像，或者在Rstudio中修改默认镜像地址。
 install.packages(&#39;ROracle&#39;,repos = &amp;quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&amp;quot;) #改为国内镜像  验证
 library(ROracle)library(DBI)drv &amp;lt;-dbDriver(&amp;quot;Oracle&amp;quot;)connect.string &amp;lt;- &amp;quot;(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.</description>
+    </item>
+    
+    <item>
+      <title>数据处理-空值填充</title>
+      <link>/2020/07/21/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E7%A9%BA%E5%80%BC%E5%A1%AB%E5%85%85/</link>
+      <pubDate>Tue, 21 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/21/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E7%A9%BA%E5%80%BC%E5%A1%AB%E5%85%85/</guid>
+      <description>加载包library(pacman)pacman::p_load(&amp;#39;data.table&amp;#39;)模拟数据x &amp;lt;- c(1,2,3,4,NA,5,NA,6,NA,NA,NA,7,NA)y &amp;lt;- c(1,2,3,4,NA,5,NA,6,NA,NA,NA,7,NA)dt &amp;lt;- data.table(x=c(1,2,3,4,NA,5,NA,6,NA,NA,NA,7,NA))填充模式const模式填充直接填充模式,type参数默认为const,当type=’const’时,fill参数有效,可指定填充.fill参数为数字或整数
+nafill(x,fill=0)## [1] 1 2 3 4 0 5 0 6 0 0 0 7 0setnafill(x = dt,type = &amp;#39;const&amp;#39;,fill = 0,cols = c(&amp;#39;x&amp;#39;))dt## x## 1: 1## 2: 2## 3: 3## 4: 4## 5: 0## 6: 5## 7: 0## 8: 6## 9: 0## 10: 0## 11: 0## 12: 7## 13: 0locf模式用前值填充,type参数设置为locf.</description>
     </item>
     
     <item>
@@ -381,6 +498,17 @@ https://docs.microsoft.com/zh-cn/power-bi/create-reports/desktop-report-themes</
       <guid>/2016/12/30/a-plain-markdown-post/</guid>
       <description>This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
  You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.  There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown.</description>
+    </item>
+    
+    <item>
+      <title>Hello R Markdown</title>
+      <link>/2015/07/23/hello-r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/2015/07/23/hello-r-markdown/</guid>
+      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+You can embed an R code chunk like this:
+summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.</description>
     </item>
     
     <item>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ODBC Driver on 钟宇飞的博客</title>
+    <link>/tags/odbc-driver/</link>
+    <description>Recent content in ODBC Driver on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 28 Jul 2020 11:30:57 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/odbc-driver/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ODBC Driver 17 for SQL Server VS SQL Server</title>
+      <link>/2020/07/28/t/</link>
+      <pubDate>Tue, 28 Jul 2020 11:30:57 +0000</pubDate>
+      
+      <guid>/2020/07/28/t/</guid>
+      <description>在使用DBI包向数据库MSSQL导入数据时,发现更改连接驱动,效率有明显提升。现记录如下：
+环境sessionInfo()R 查看本机现有驱动library(odbc)drivers_tbl &amp;lt;- odbc::odbcListDrivers()head(drivers_tbl)模拟数据library(data.table)n &amp;lt;- 1e5dt &amp;lt;- data.table(a=1:n,b=rep(&amp;#39;a&amp;#39;,n),d=1:n * 1e4)测试con_1 &amp;lt;- dbConnect(odbc::odbc(), .connection_string = &amp;quot;driver={ODBC Driver 17 for SQL Server};server=G1001014\\NEWMSSQL;database=test;uid=sa;pwd=123456&amp;quot;, timeout = 10)con_2 &amp;lt;- dbConnect(odbc::odbc(), .connection_string = &amp;quot;driver={SQL Server};server=G1001014\\NEWMSSQL;database=test;uid=sa;pwd=123456&amp;quot;, timeout = 10)#测试次数nn &amp;lt;- 10result_1 &amp;lt;- vector(length = nn)result_2 &amp;lt;- vector(length = nn)for(i in 1:nn){#con_1tictoc::tic()DBI::dbWriteTable(conn = con_1,name = &amp;#39;test_table&amp;#39;,value = dt,overwrite=T)a &amp;lt;- tictoc::toc()result_1[i] &amp;lt;- a$toc-a$tic#con_2tictoc::tic()DBI::dbWriteTable(conn = con_2,name = &amp;#39;test_table&amp;#39;,value = dt,overwrite=T)a &amp;lt;- tictoc::toc()result_2[i] &amp;lt;- a$toc-a$tic}差异比较mean(result_1)mean(result_2)</description>
+    </item>
+    
+  </channel>
+</rss>

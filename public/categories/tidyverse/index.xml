@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tidyverse on 钟宇飞的博客</title>
+    <link>/categories/tidyverse/</link>
+    <description>Recent content in tidyverse on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 27 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tidy data use tidyr package</title>
+      <link>/2020/09/27/tidy-data-use-tidyr-package/</link>
+      <pubDate>Sun, 27 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/27/tidy-data-use-tidyr-package/</guid>
+      <description>前言tidyr包是tidyverse系列中的核心包,tidyr包的核心目的是整洁数据，有以下特征：
+每列都是一个变量每行都是一个记录每个单元格都是一个值在日常使用数据过程中，这种数据存储方式是一种标准的数据存储方式，像关系型数据中数据的存储。
+安装## 最简单是的方式就是安装tidyverseinstall.packages(&amp;#39;tidyverse&amp;#39;)## 或者仅仅安装 tidyr:install.packages(&amp;#39;tidyr&amp;#39;)## 或者从github 安装开发版本## install.packages(&amp;quot;devtools&amp;quot;)devtools::install_github(&amp;quot;tidyverse/tidyr&amp;quot;)# CTEST CODE主要功能library(tidyr)tidyr包中的函数可以分为5个主要大类
+pivot_longer() 和 pivot_wider() 宽转长以及长转宽
+unnest_longer() 和 unnest_wider(),hoist() 将列表嵌套转化为整洁数据
+nest() 数据嵌套
+separate(),extract()拆分列,提取新列
+replace_na() 缺失值处理
+宽转长详情查看vignette(&#34;pivot&#34;),以下是照搬该图册中的内容
+基础长数据与宽数据之间的转换，类似我们常用的EXcel中的透视表功能。接下来用tidyr包自带的插图案例记录相关函数用法
+在Excel中有时候方便我们肉眼观察，可能一个数据集会有很多列,如下所示：
+col1col2col3col4col5col6col7v1v2v3v4v5v6v7vb1vb2vb3vb4vb5vb6vb7方便观察，但是不方便统计分析，这是我们需要把数据做处理，从“宽数据变成长数据”即宽转长。</description>
+    </item>
+    
+  </channel>
+</rss>

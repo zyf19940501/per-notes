@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openxlsx on 钟宇飞的博客</title>
+    <link>/tags/openxlsx/</link>
+    <description>Recent content in openxlsx on 钟宇飞的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 28 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/openxlsx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>R包-openxlsx学习</title>
+      <link>/2021/01/28/openxlsx/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/01/28/openxlsx/</guid>
+      <description>前言openxlsx是当我需要定制输出Excel表格或报表时常用R包。目前该包的版本4.2.3，通过使用Rcpp，包的读写速度在Excel的百万级下是可接受状态,包的相关函数功能完善且简易好用，并且正在积极开发中，相信它以后会越来越好用。本着学习以及熟悉函数功能目的，所以有了本文，文中大部分案例是都官方案例，推荐直接阅读官方资料。项目地址如下：
+openxlsx官方项目地址
+个人使用下来主要优势：
+不依赖java环境，很重要的一点
+读写速度可接受
+可设置条件格式，与Excel中『开始』选项卡的条件格式功能接近
+可批量插入ggplot2图
+可插入公式
+可渲染大部分Excel格式，并且效率相比部分python包高效
+可添加页眉页脚以及其他格式，方便直接打印
+功能完善并且在积极开发中
+本文使用版本信息如下:
+packageVersion(&amp;quot;openxlsx&amp;quot;)#&amp;gt; [1] &amp;#39;4.2.3&amp;#39;Ps:当数据量较大时，目前采用writexl::write_xlsx(dt,&#39;test.xlsx&#39;)输出Excel文件，这是我知道的现阶段输出Excel格式速度最快的包。该包的函数很简单，主要就是write_xlsx()功能。
+安装稳定版
+# 稳定版install.packages(&amp;quot;openxlsx&amp;quot;, dependencies = TRUE, repos = &amp;quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&amp;quot;)开发版
+install.packages(c(&amp;quot;Rcpp&amp;quot;, &amp;quot;devtools&amp;quot;), dependencies = TRUE)library(devtools)install_github(&amp;quot;ycphs/openxlsx&amp;quot;)基础读写功能library(openxlsx)读取Excelread.xlsx()是读取函数，主要参数如下：
+read.xlsx(xlsxFile,sheet = 1,startRow = 1,colNames = TRUE,rowNames = FALSE,detectDates = FALSE,skipEmptyRows = TRUE,skipEmptyCols = TRUE,rows = NULL,cols = NULL,check.</description>
+    </item>
+    
+  </channel>
+</rss>

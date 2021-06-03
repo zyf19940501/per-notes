@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>comment-font on 钟宇飞的博客</title>
-    <link>/categories/comment-font/</link>
-    <description>Recent content in comment-font on 钟宇飞的博客</description>
+    <title>bookdown on 钟宇飞的博客</title>
+    <link>/tags/bookdown/</link>
+    <description>Recent content in bookdown on 钟宇飞的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 03 Jun 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/comment-font/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/bookdown/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -25,16 +25,6 @@ bookdown 在我们使用 bookdown 创建项目后，生成的项目文件中有�
 打开 style.css，在最后添加即可。
 code span.co { color: #60a0b0; font-style: normal; } 完整 style.css 如下所示：
 p.caption {color: #777;margin-top: 10px;}p code {white-space: inherit;}pre {word-break: normal;word-wrap: normal;}pre code {white-space: inherit;}code span.co { color: #60a0b0;font-style: normal;}在修改完 style.</description>
-    </item>
-    
-    <item>
-      <title>blogdown-comment-font</title>
-      <link>/2021/06/01/blogdown-comment-font/</link>
-      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/01/blogdown-comment-font/</guid>
-      <description> .hljs-comment{font-family: Microsoft YaHei ;font-style: normal;}加载包library(dplyr)## ## 载入程辑包：&amp;#39;dplyr&amp;#39;## The following objects are masked from &amp;#39;package:stats&amp;#39;:## ## filter, lag## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## intersect, setdiff, setequal, union# 添加中文注释想要如上显示不是斜体的中文注释该如何呢？通过在正文中引入css即可。
-&amp;lt;html&amp;gt;&amp;lt;style&amp;gt; .hljs-comment{font-family: Microsoft YaHei ;font-style: normal;}&amp;lt;/style&amp;gt;&amp;lt;/html&amp;gt;</description>
     </item>
     
   </channel>
